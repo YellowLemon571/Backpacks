@@ -1,0 +1,12 @@
+name: Backpacks
+author: Yellow571
+version: 1.0a
+api-version: 1.15
+main: ml.yellowmc.backpacks.Main
+
+commands:
+  givebackpack:
+    description: Gives a backpack to a specified player.
+    usage: /givebackpack <username>
+    permission: backpacks.give
+    permission-message: You do not have permission to use /givebackpack.
