@@ -8,7 +8,7 @@ Color codes may be used with §.
 Backpack inventories are stored as base64 strings in the backpacks.yml file.
 
 ## Commands
-`/givebackpack <username>` Gives a backpack to a specified player.
+`/givebackpack <username>` - Gives a backpack to a specified player.
 
 ## Permissions
 `backpacks.give` - Allows players to use the /givebackpack command.
