@@ -8,17 +8,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class GiveBackpack implements CommandExecutor {
+public class BackpackGive implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) return true;
         Player player = (Player) sender;
         if (args.length < 1) {
-            player.sendMessage(Main.msgPrefix + "Please specify a target.");
+            player.sendMessage(Main.errPrefix + "Please specify a target.");
             return true;
         }
         Player target = Bukkit.getServer().getPlayer(args[0]);
         if (target == null) {
-            player.sendMessage(Main.msgPrefix + "Target not found.");
+            player.sendMessage(Main.errPrefix + "Target not found.");
             return true;
         }
         if (BackpacksAPI.getEmptySlots(target) >= 1) {

@@ -1,7 +1,7 @@
 package ml.yellowmc.backpacks;
 
 import ml.yellowmc.backpacks.api.BackpacksAPI;
-import ml.yellowmc.backpacks.cmd.GiveBackpack;
+import ml.yellowmc.backpacks.cmd.*;
 import ml.yellowmc.backpacks.listener.BackpackListener;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,6 +13,7 @@ public class Main extends JavaPlugin implements Listener {
     public static BackpacksAPI bAPI;
     public static FileConfiguration config;
     public static final String msgPrefix = ChatColor.YELLOW + "[Backpacks] " + ChatColor.WHITE;
+    public static final String errPrefix = ChatColor.RED + "[" + ChatColor.YELLOW + "Backpacks" + ChatColor.RED + "] ";
 
     @Override
     public void onEnable() {
@@ -23,11 +24,15 @@ public class Main extends JavaPlugin implements Listener {
         bAPI.createBackpackRecipe();
         getLogger().info("Backpack recipe registered.");
         getServer().getPluginManager().registerEvents(new BackpackListener(), this);
-        getCommand("givebackpack").setExecutor(new GiveBackpack());
+        getCommand("backpackgive").setExecutor(new BackpackGive());
+        getCommand("backpackmaterial").setExecutor(new BackpackMaterial());
+        getCommand("backpackname").setExecutor(new BackpackName());
+        getCommand("backpacklore").setExecutor(new BackpackLore());
+        getCommand("backpackrecipe").setExecutor(new BackpackRecipe());
         getLogger().info("Listeners and commands registered.");
     }
     @Override
     public void onDisable() {
-        getLogger().info("Disabled Backpacks v1.0a");
+        getLogger().info("Disabled Backpacks v1.1a");
     }
 }

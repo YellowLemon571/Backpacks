@@ -1,3 +1,12 @@
-backpackMaterial: CHEST
+backpackMaterial: "CHEST"
 backpackName: "§eBackpack"
 backpackLore: "§d§oRight click in hand to open."
+backpackRecipe:
+  shape:
+    top: "LGL"
+    middle: "LCL"
+    bottom: "LGL"
+  materials:
+    L: "LEATHER"
+    G: "GOLD_INGOT"
+    C: "CHEST"
