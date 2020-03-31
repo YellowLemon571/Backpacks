@@ -32,6 +32,32 @@ public class BackpacksAPI {
         config = plugin.getConfig();
     }
 
+    public void checkConfig() {
+        File file = new File(plugin.getDataFolder() + "/config.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        if (!config.contains("version") || !config.getString("version").equals(config.getDefaults().getString("version"))) {
+            plugin.getLogger().info("Config outdated. Creating new config.");
+            File oldFile = null;
+            boolean exists = true;
+            int index = 0;
+            while (exists) {
+                oldFile = new File(plugin.getDataFolder() + "/config.yml.old" + String.valueOf(index));
+                if (!oldFile.exists()) {
+                    exists = false;
+                } else {
+                    index++;
+                }
+            }
+            boolean rename = file.getAbsoluteFile().renameTo(oldFile.getAbsoluteFile());
+            if (!rename) {
+                plugin.getLogger().severe("Failed to rename config! Disabling plugin.");
+                Bukkit.getPluginManager().disablePlugin(plugin);
+                return;
+            }
+            plugin.saveDefaultConfig();
+        }
+    }
+
     public FileConfiguration getBackpackYml() {
         File backpacksFile = new File(plugin.getDataFolder() + "/backpacks.yml");
         return YamlConfiguration.loadConfiguration(backpacksFile);
