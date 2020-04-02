@@ -19,8 +19,7 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() {
         bAPI = new BackpacksAPI(this);
         saveDefaultConfig();
-        bAPI.checkConfig();
-        config = getConfig();
+        config = bAPI.loadConfig();
         getLogger().info("Config loaded.");
         bAPI.createBackpackRecipe();
         getLogger().info("Backpack recipe registered.");

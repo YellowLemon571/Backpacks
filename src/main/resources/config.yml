@@ -8,6 +8,6 @@ backpackRecipe:
     middle: "LCL"
     bottom: "LGL"
   materials:
-    L: "LEATHER"
-    G: "GOLD_INGOT"
-    C: "CHEST"
+    'L': "LEATHER"
+    'G': "GOLD_INGOT"
+    'C': "CHEST"
