@@ -25,11 +25,9 @@ import java.util.*;
 public class BackpacksAPI {
 
     private Plugin plugin;
-    private static FileConfiguration config;
 
     public BackpacksAPI(Plugin plugin) {
         this.plugin = plugin;
-        config = plugin.getConfig();
     }
 
     public FileConfiguration loadConfig() {
@@ -109,10 +107,10 @@ public class BackpacksAPI {
             backpackMaterial = Material.CHEST;
         }
         List<String> backpackLore = new ArrayList<String>();
-        backpackLore.add(config.getString("backpackLore"));
+        backpackLore.add(Main.config.getString("backpackLore"));
         ItemStack backpack = new ItemStack(backpackMaterial);
         ItemMeta meta = backpack.getItemMeta();
-        meta.setDisplayName(config.getString("backpackName"));
+        meta.setDisplayName(Main.config.getString("backpackName"));
         meta.setLore(backpackLore);
         backpack.setItemMeta(meta);
         return backpack;

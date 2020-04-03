@@ -139,7 +139,7 @@ public class BackpackListener implements Listener {
                 } else if (!ArrayUtils.contains(new int[]{3, 4, 5, 12, 13, 14, 21, 22, 23}, event.getSlot())) {
                     event.setCancelled(true);
                 }
-            } else if (event.getClickedInventory().getType() == InventoryType.PLAYER && inventoryView.getTitle().equals("Set Crafting Recipe") && (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)) {
+            } else if (event.getClickedInventory() != null && event.getClickedInventory().getType() == InventoryType.PLAYER && inventoryView.getTitle().equals("Set Crafting Recipe") && (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)) {
                 event.setCancelled(true);
             }
         }

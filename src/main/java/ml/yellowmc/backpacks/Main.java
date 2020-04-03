@@ -33,6 +33,6 @@ public class Main extends JavaPlugin implements Listener {
     }
     @Override
     public void onDisable() {
-        getLogger().info("Disabled Backpacks v1.1a");
+        getLogger().info("Disabled Backpacks v" + getDescription().getVersion());
     }
 }
