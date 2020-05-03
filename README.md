@@ -27,4 +27,4 @@ Backpack inventories are stored as base64 strings in the backpacks.yml file.
 # Crafting Recipe
 This is the backpack's default crafting recipe. Recipes can be changed either in the config or in-game with the /backpackrecipe command.
 
-![image](https://proxy.spigotmc.org/0dc189d509c8aa2eb20ef4e009f76d2985075a06?url=https%3A%2F%2Fi.imgur.com%2FtknSTcO.png "Default Crafting Recipe")
+![image](https://i.imgur.com/dSPQvU8.png "Default Crafting Recipe")
