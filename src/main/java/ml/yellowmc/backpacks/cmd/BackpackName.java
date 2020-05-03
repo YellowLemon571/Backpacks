@@ -1,28 +1,25 @@
 package ml.yellowmc.backpacks.cmd;
 
 import ml.yellowmc.backpacks.Main;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class BackpackName implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player) sender;
-        if (args.length < 1) {
+public class BackpackName {
+    public static void command(Player player, String[] args) {
+        if (args.length < 2) {
             player.sendMessage(Main.errPrefix + "Please specify a name.");
-            return true;
+            return;
         }
         String name = "";
-        for (int i = 0; i < args.length; i++) {
-            name = name + args[i] + ((args.length - 1 > 1) ? " " : "");
+        for (int i = 1; i < args.length; i++) {
+            name += args[i] + ((args.length - 1 > 1) ? " " : "");
         }
         String formattedName = name.replace('&', '§');
         Main.config.set("backpackName", formattedName);
         Main.bAPI.saveConfig();
+        Bukkit.removeRecipe(Main.bAPI.getBackpackKey());
+        Main.bAPI.createBackpackRecipe();
         player.sendMessage(Main.msgPrefix + "Backpack's name successfully changed to " + formattedName);
-        return true;
+        return;
     }
 }

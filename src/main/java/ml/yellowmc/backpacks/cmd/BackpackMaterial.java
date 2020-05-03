@@ -1,29 +1,26 @@
 package ml.yellowmc.backpacks.cmd;
 
 import ml.yellowmc.backpacks.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BackpackMaterial implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player) sender;
-        if (args.length < 1) {
+public class BackpackMaterial {
+    public static void command(Player player, String[] args) {
+        if (args.length < 2) {
             player.sendMessage(Main.errPrefix + "Please specify a material.");
-            return true;
+            return;
         }
-        Material material = Material.getMaterial(args[0].toUpperCase());
+        Material material = Material.getMaterial(args[1].toUpperCase());
         if (material == null) {
             player.sendMessage(Main.errPrefix + "Material not found.");
-            return true;
+            return;
         }
-        Main.config.set("backpackMaterial", args[0].toUpperCase());
+        Main.config.set("backpackMaterial", args[1].toUpperCase());
         Main.bAPI.saveConfig();
+        Bukkit.removeRecipe(Main.bAPI.getBackpackKey());
+        Main.bAPI.createBackpackRecipe();
         player.sendMessage(Main.msgPrefix + "Backpack's material changed successfully.");
-        return true;
+        return;
     }
 }

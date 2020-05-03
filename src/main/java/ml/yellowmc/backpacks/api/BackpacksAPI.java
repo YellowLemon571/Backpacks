@@ -33,23 +33,50 @@ public class BackpacksAPI {
     public FileConfiguration loadConfig() {
         File file = new File(plugin.getDataFolder() + "/config.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-        if (config.getString("version") == null || !config.getString("version").equals(plugin.getDescription().getVersion())) {
-            plugin.getLogger().info("Config outdated. Creating new config.");
-            File oldFile = null;
-            boolean exists = true;
-            int index = 0;
-            while (exists) {
-                oldFile = new File(plugin.getDataFolder() + "/config.yml.old" + String.valueOf(index));
-                if (!oldFile.exists()) {
-                    exists = false;
-                } else {
-                    index++;
-                }
-            }
-            boolean rename = file.getAbsoluteFile().renameTo(oldFile.getAbsoluteFile());
-            plugin.saveDefaultConfig();
+        if (config.getString("version") == null ||
+                !config.getString("version").equals(plugin.getDescription().getVersion()) ||
+                config.getString("backpackMaterial") == null ||
+                Material.getMaterial(config.getString("backpackMaterial")) == null ||
+                config.getString("backpackName") == null ||
+                config.getString("backpackName").isEmpty() ||
+                config.getString("backpackLore") == null ||
+                config.getString("backpackLore").isEmpty() ||
+                config.getConfigurationSection("backpackRecipe") == null ||
+                config.getConfigurationSection("backpackRecipe.shape") == null ||
+                config.getString("backpackRecipe.shape.top") == null ||
+                config.getString("backpackRecipe.shape.middle") == null ||
+                config.getString("backpackRecipe.shape.bottom") == null ||
+                config.getConfigurationSection("backpackRecipe.materials") == null ||
+                config.getConfigurationSection("backpackRecipe.materials").getValues(false).isEmpty()) {
+            plugin.getLogger().warning("Config is outdated or broken. Creating new config.");
+            config = resetConfig(file);
+        }
+        File file_storage = new File(plugin.getDataFolder() + "/backpacks.yml");
+        FileConfiguration backpacks = YamlConfiguration.loadConfiguration(file_storage);
+        if (!backpacks.contains("id-index")) {
+            backpacks.set("id-index", 0);
+            saveBackpackYml(backpacks);
+        } else {
+            Main.id_index = backpacks.getInt("id-index");
         }
         return config;
+    }
+
+    private FileConfiguration resetConfig(File file) {
+        File oldFile = null;
+        boolean exists = true;
+        int index = 0;
+        while (exists) {
+            oldFile = new File(plugin.getDataFolder() + "/config.yml.old" + String.valueOf(index));
+            if (!oldFile.exists()) {
+                exists = false;
+            } else {
+                index++;
+            }
+        }
+        file.getAbsoluteFile().renameTo(oldFile.getAbsoluteFile());
+        plugin.saveDefaultConfig();
+        return plugin.getConfig();
     }
 
     public FileConfiguration getBackpackYml() {
@@ -161,6 +188,28 @@ public class BackpacksAPI {
             }
         }
         return null;
+    }
+
+    public static boolean compareItems(ItemStack a, ItemStack b) {
+        Material a_material = a.getType();
+        Material b_material = b.getType();
+        ItemMeta a_meta = a.getItemMeta();
+        ItemMeta b_meta = b.getItemMeta();
+        if (a_meta == null || b_meta == null) return false;
+        String a_name = a_meta.getDisplayName();
+        String b_name = b_meta.getDisplayName();
+        return a_material.equals(b_material) && a_name.equals(b_name);
+    }
+
+    public void updateBackpackIDs() {
+        File file = new File(plugin.getDataFolder() + "/backpacks.yml");
+        FileConfiguration backpacks = YamlConfiguration.loadConfiguration(file);
+        backpacks.set("id-index", Main.id_index);
+        try {
+            backpacks.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String invToBase64(Inventory inventory) throws IllegalStateException {

@@ -1,28 +1,25 @@
 package ml.yellowmc.backpacks.cmd;
 
 import ml.yellowmc.backpacks.Main;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class BackpackLore implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player) sender;
-        if (args.length < 1) {
+public class BackpackLore {
+    public static void command(Player player, String[] args) {
+        if (args.length < 2) {
             player.sendMessage(Main.errPrefix + "Please specify a lore.");
-            return true;
+            return;
         }
         String lore = "";
-        for (int i = 0; i < args.length; i++) {
-            lore = lore + args[i] + ((args.length - 1 > 1) ? " " : "");
+        for (int i = 1; i < args.length; i++) {
+            lore += args[i] + ((args.length - 1 > 1) ? " " : "");
         }
         String formattedLore = lore.replace('&', '§');
         Main.config.set("backpackLore", formattedLore);
         Main.bAPI.saveConfig();
+        Bukkit.removeRecipe(Main.bAPI.getBackpackKey());
+        Main.bAPI.createBackpackRecipe();
         player.sendMessage(Main.msgPrefix + "Backpack's lore successfully changed to " + formattedLore);
-        return true;
+        return;
     }
 }

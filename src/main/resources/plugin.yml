@@ -5,36 +5,10 @@ api-version: "1.15"
 main: ml.yellowmc.backpacks.Main
 
 commands:
-  backpackgive:
-    description: Gives a backpack to a specified player.
-    usage: /backpackgive <username>
-    aliases: bpgive
-    permission: backpacks.give
-    permission-message: You do not have permission to use /givebackpack.
-  backpackmaterial:
-    description: Changes the backpack's material.
-    usage: /backpackmaterial <material>
-    aliases: bpmaterial
-    permission: backpacks.modify
-    permission-message: You do not have permission to use /backpackmaterial.
-  backpackname:
-    description: Changes the backpack's name.
-    usage: /backpackname <name>
-    aliases: bpname
-    permission: backpacks.modify
-    permission-message: You do not have permission to use /backpackname.
-  backpacklore:
-    description: Changes the backpack's lore.
-    usage: /backpacklore <lore>
-    aliases: bplore
-    permission: backpacks.modify
-    permission-message: You do not have permission to use /backpacklore.
-  backpackrecipe:
-    description: Changes the backpack's crafting recipe.
-    usage: /backpackrecipe
-    aliases: bprecipe
-    permission: backpacks.modify
-    permission-message: You do not have permission to use /backpackrecipe.
+  backpacks:
+    description: Parent command for Backpacks.
+    usage: /backpacks <subcommand> <args>
+    aliases: [bp]
 
 permissions:
   backpacks.*:
@@ -53,7 +27,7 @@ permissions:
     default: op
   backpacks.use:
     description: Allows usage of backpacks.
-    default: op
+    default: true
   backpacks.modify:
     description: Allows modification of the backpack.
     default: op

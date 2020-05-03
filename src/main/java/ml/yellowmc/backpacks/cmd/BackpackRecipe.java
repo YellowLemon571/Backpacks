@@ -7,13 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-public class BackpackRecipe implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
-        Player player = (Player) sender;
+public class BackpackRecipe {
+    public static void command(Player player) {
         Inventory recipeMenu = BackpacksAPI.getRecipeInventory();
         player.openInventory(recipeMenu);
-        return true;
+        return;
     }
 }
